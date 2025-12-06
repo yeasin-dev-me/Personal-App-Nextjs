@@ -42,7 +42,7 @@ Production-grade health membership platform featuring Next.js + React (Tailwind)
 
 - Friendly URLs such as `/about`, `/skills`, `/projects`, `/resume`, and `/contact` render the same landing page and auto-scroll to the requested section.  
 - Navigation updates the browser URL using the App Router so links can be shared directly (ideal for proposals or analytics tracking).  
-- Modify the section list in `app/[section]/page.tsx` to control which anchors get their own routes.
+- Each route lives in `src/app/<section>/page.tsx` and simply renders `<SectionsRoot initialSection="..." />`, keeping the experience in sync with the main page.
 
 ## Technical Stack
 
@@ -82,7 +82,11 @@ src/
 │   ├── globals.css        # Theme tokens, typography helpers, utilities
 │   ├── layout.tsx         # Metadata + global layout
 │   ├── page.tsx           # Main landing page using SectionsRoot
-│   └── [section]/page.tsx # Static routes like /about, /projects -> scroll to section
+│   ├── about/page.tsx     # /about -> scrolls to About section
+│   ├── skills/page.tsx    # /skills -> scrolls to Skills
+│   ├── projects/page.tsx  # /projects -> scrolls to Projects
+│   ├── resume/page.tsx    # /resume -> scrolls to Resume
+│   └── contact/page.tsx   # /contact -> scrolls to Contact
 └── components/
     ├── Navigation.tsx
     ├── HeroSection.tsx
@@ -113,7 +117,7 @@ npm run dev
 - Personalize copy inside each component (`HeroSection`, `AboutSection`, etc.).
 - Update skills/project arrays in `SkillsSection.tsx` and `ProjectsSection.tsx` to showcase new work.
 - Adjust the live resume data inside `ResumeSection.tsx` to reflect new roles, education, or certifications.
-- To add/remove deep-linkable sections (e.g., `/about`), update `SectionsRoot.tsx`, nav copy in `Navigation.tsx`, and the `SECTION_MAP` inside `app/[section]/page.tsx`.
+- To add/remove deep-linkable sections (e.g., `/about`), update `SectionsRoot.tsx`, nav copy in `Navigation.tsx`, and add/remove the corresponding `app/<section>/page.tsx` file that renders `<SectionsRoot initialSection="..." />`.
 - Allow additional external image hosts via `next.config.ts` → `images.remotePatterns`.
 - Set `NEXT_PUBLIC_BASE_PATH` only when deploying under a subdirectory (e.g., `/Personal-App-Nextjs`); leave it unset for apex/custom domains so assets resolve from `/`.
 - Tailwind tokens, gradients, and typography utilities live in `src/app/globals.css`.
