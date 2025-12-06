@@ -1,25 +1,66 @@
-# Developer Portfolio Website
+# Yeasin Arafat — Full-Stack Software Engineer
 
-Modern, dark-themed portfolio for a full-stack engineer. Built with Next.js App Router, TypeScript, Tailwind CSS v4, Motion animations, and Lucide icons. The experience features micro-interactions, scroll-triggered reveals, and reusable UI primitives inspired by shadcn/ui.
+Modern, dark-themed portfolio highlighting my work across React/Next.js frontends, Django REST/FastAPI backends, and production-ready DevOps pipelines. The site blends Motion-powered interactions, Tailwind v4 styling, and reusable UI primitives to mirror the polish I bring to client deliverables.
 
-## Tech Stack
+## At a Glance
 
-- Next.js 16 (App Router) + TypeScript
-- Tailwind CSS v4 with custom tokens defined in `src/app/globals.css`
-- Motion (formerly Framer Motion) for scroll + hover animations
-- Lucide React icon set
-- Custom UI components (`button`, `card`, `input`, `textarea`) for consistent styling
+- **Location:** Dhaka, Bangladesh  
+- **Phone:** +880 1851 257 710  
+- **Email:** [yeasinarafat.cs@gmail.com](mailto:yeasinarafat.cs@gmail.com)  
+- **LinkedIn:** [linkedin.com/in/yeasin-arafat650](https://www.linkedin.com/in/yeasin-arafat650)  
+- **GitHub:** [github.com/ya-shuvo30](https://github.com/ya-shuvo30)
 
-## Key Sections
+## What I Build
 
-| Section | Highlights |
+| Focus | Highlights |
 | --- | --- |
-| Navigation | Sticky, translucent nav with smooth scroll |
-| Hero | Particle background, gradient typography, CTA + social icons |
-| About | Bio copy, trait pills, feature cards |
-| Skills | Animated progress bars, tech pills |
-| Projects | Featured + grid cards using `ImageWithFallback` |
-| Contact | Styled form, contact cards, social buttons |
+| Full-Stack Web | React, Next.js, Tailwind CSS, TypeScript, Zustand, JWT auth |
+| Backend Engineering | Django REST Framework, FastAPI, PostgreSQL schema design, Redis, Celery |
+| DevOps & Delivery | Docker, Docker Compose, Nginx, GitHub Actions, CI/CD to AWS & Azure |
+| System Design | Clean API architecture, secure multi-tenant data models, observability & docs |
+
+## Experience
+
+- **Software Engineer Level I — Arriva Soft (Apr 2025 – Present)**  
+    Ship React/Next.js + Django/Postgres features end-to-end, own CI/CD, and contribute to AWS/Azure deployments.
+- **Back-End Developer — Itransition Group (Jan 2025 – Apr 2025)**  
+    Built reusable API layers with Django ORM, aligned frontend-backend contracts, and deployed to Azure.
+- **Coding Instructor (Remote) — Thinkland.AI (Apr 2024 – Dec 2024)**  
+    Taught Scratch, Python, and intro ML; authored project-based curriculum and coding challenges.
+
+## Highlighted Project — BrightLife
+
+Production-grade health membership platform featuring Next.js + React (Tailwind), Django REST API, PostgreSQL database, JWT authentication, Redis caching, Celery-powered background jobs, PDF generation, Docker + Nginx deployment, and CI/CD automation.
+
+## Technical Stack
+
+### Frontend
+
+- React, Next.js (App Router)
+- TypeScript, Tailwind CSS v4, Zustand
+- Motion/react animations, custom shadcn-style components
+
+### Backend
+
+- Python, Django REST Framework, FastAPI, Node.js
+- PostgreSQL schema design & ORM business logic
+- Redis caching, Celery task queues, secure JWT auth
+
+### DevOps & Tooling
+
+- Docker, Docker Compose, Nginx
+- Git/GitHub, GitHub Actions, CI/CD pipelines
+- AWS, Azure, Vercel deployments
+
+## Education & Certifications
+
+- B.Sc. in Computer Science & Engineering — World University of Bangladesh (2020–2023)
+- HSC (Science) — Safiuddin Sarker Academy & College (2017–2019)
+- Google Fundamentals of Digital Marketing
+- Python Course: Basic to Advanced
+- EF SET English Certificate (C1 — 69/100)
+- HackerRank Problem Solving (Intermediate)
+- Top 5, Hult Prize 2020–2021 Dhaka Summit (On-Campus Finalist)
 
 ## Project Structure
 
@@ -47,23 +88,32 @@ npm install
 npm run dev
 ```
 
-- Local dev server: <http://localhost:3000>
+- Dev server: <http://localhost:3000>
 - Lint: `npm run lint`
 - Production build: `npm run build`
 
-## Customization
+## Customization Notes
 
-- Update hero/about copy and social links inside their respective components.
-- Adjust skill values or project data by editing arrays in `SkillsSection.tsx` and `ProjectsSection.tsx`.
-- Replace Unsplash images or add new hosts via `next.config.ts` (`images.remotePatterns`).
-- Tailwind utility classes and custom typography helpers live in `globals.css` for easy theme tweaks.
+- Personalize copy inside each component (`HeroSection`, `AboutSection`, etc.).
+- Update skills/project arrays in `SkillsSection.tsx` and `ProjectsSection.tsx` to showcase new work.
+- Allow additional external image hosts via `next.config.ts` → `images.remotePatterns`.
+- Set `NEXT_PUBLIC_BASE_PATH` only when deploying under a subdirectory (e.g., `/Personal-App-Nextjs`); leave it unset for apex/custom domains so assets resolve from `/`.
+- Tailwind tokens, gradients, and typography utilities live in `src/app/globals.css`.
 
 ## Deployment
 
-Host on Vercel for the best Next.js experience:
+### GitHub Pages (CI/CD built-in)
 
-1. Create a new Vercel project connected to this repository.
-2. Set framework preset to Next.js; defaults work out of the box.
-3. After deployment, add any additional image domains to `next.config.ts` if assets are hosted elsewhere.
+1. Ensure the default branch is `main`, then push your changes.  
+2. In GitHub → _Settings_ → _Pages_, choose **GitHub Actions** as the source (one-time step).  
+3. The workflow at `.github/workflows/deploy.yml` installs deps, lints, runs `npm run build`, and uploads the static `out/` folder.  
+4. Commit `public/CNAME` with `yeasindev.me`, keep the four GitHub A records for `@`, and point `www` via CNAME to `ya-shuvo30.github.io`.  
+5. In repo settings set the Custom domain to `yeasindev.me`, wait for the SSL check to pass, then enable **Enforce HTTPS**.  
+6. During DNS propagation the site remains reachable at `https://<username>.github.io/Personal-App-Nextjs/` after each workflow run.
 
-For other hosts (Netlify, AWS, etc.), ensure `npm run build` passes and serve the generated `.next` output via the platform’s Next.js adapter.
+### Other Hosts
+
+- Vercel / Netlify: remove the `NEXT_PUBLIC_BASE_PATH` env var and trigger a build.  
+- Docker/Nginx: run `npm run build` to generate `out/` (static) or serve `.next` with a Node adapter.
+
+> **Note:** Because the workflow leaves `NEXT_PUBLIC_BASE_PATH` undefined, builds target the root (`/`). Set it (e.g., `/Personal-App-Nextjs`) only if you intentionally deploy under a subpath of `username.github.io`.
