@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import clsx from "clsx";
+import { useRouter } from "next/navigation";
 
 const navLinks = [
   { label: "Home", target: "hero" },
@@ -15,6 +16,7 @@ const navLinks = [
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -28,6 +30,14 @@ export function Navigation() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
+  };
+
+  const buildHref = (target: string) => (target === "hero" ? "/" : `/${target}`);
+
+  const handleNav = (target: string) => {
+    const href = buildHref(target);
+    router.push(href, { scroll: false });
+    scrollTo(target);
   };
 
   return (
@@ -46,7 +56,7 @@ export function Navigation() {
         >
           <button
             type="button"
-            onClick={() => scrollTo("hero")}
+            onClick={() => handleNav("hero")}
             className="heading-md gradient-text tracking-tight"
           >
             yeasin.dev
@@ -56,7 +66,7 @@ export function Navigation() {
               <button
                 key={link.target}
                 type="button"
-                onClick={() => scrollTo(link.target)}
+                onClick={() => handleNav(link.target)}
                 className="body-base rounded-2xl px-4 py-2 text-gray-300 transition-colors hover:text-white"
               >
                 {link.label}

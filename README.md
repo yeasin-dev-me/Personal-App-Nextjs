@@ -38,6 +38,12 @@ Production-grade health membership platform featuring Next.js + React (Tailwind)
 - Experience, education, and certification data live in `src/components/ResumeSection.tsx` for quick updates.  
 - The layout mirrors proposal-ready content so clients can validate skills directly on the site.
 
+## Section Routing
+
+- Friendly URLs such as `/about`, `/skills`, `/projects`, `/resume`, and `/contact` render the same landing page and auto-scroll to the requested section.  
+- Navigation updates the browser URL using the App Router so links can be shared directly (ideal for proposals or analytics tracking).  
+- Modify the section list in `app/[section]/page.tsx` to control which anchors get their own routes.
+
 ## Technical Stack
 
 ### Frontend
@@ -75,7 +81,8 @@ src/
 ├── app/
 │   ├── globals.css        # Theme tokens, typography helpers, utilities
 │   ├── layout.tsx         # Metadata + global layout
-│   └── page.tsx           # Composes all sections
+│   ├── page.tsx           # Main landing page using SectionsRoot
+│   └── [section]/page.tsx # Static routes like /about, /projects -> scroll to section
 └── components/
     ├── Navigation.tsx
     ├── HeroSection.tsx
@@ -83,6 +90,7 @@ src/
     ├── SkillsSection.tsx
     ├── ProjectsSection.tsx
     ├── ResumeSection.tsx
+    ├── SectionsRoot.tsx
     ├── ContactSection.tsx
     ├── figma/ImageWithFallback.tsx
     └── ui/{button,card,input,textarea}.tsx
@@ -98,12 +106,14 @@ npm run dev
 - Dev server: <http://localhost:3000>
 - Lint: `npm run lint`
 - Production build: `npm run build`
+- Sitemap only: `npm run sitemap` (runs automatically after every build)
 
 ## Customization Notes
 
 - Personalize copy inside each component (`HeroSection`, `AboutSection`, etc.).
 - Update skills/project arrays in `SkillsSection.tsx` and `ProjectsSection.tsx` to showcase new work.
 - Adjust the live resume data inside `ResumeSection.tsx` to reflect new roles, education, or certifications.
+- To add/remove deep-linkable sections (e.g., `/about`), update `SectionsRoot.tsx`, nav copy in `Navigation.tsx`, and the `SECTION_MAP` inside `app/[section]/page.tsx`.
 - Allow additional external image hosts via `next.config.ts` → `images.remotePatterns`.
 - Set `NEXT_PUBLIC_BASE_PATH` only when deploying under a subdirectory (e.g., `/Personal-App-Nextjs`); leave it unset for apex/custom domains so assets resolve from `/`.
 - Tailwind tokens, gradients, and typography utilities live in `src/app/globals.css`.
@@ -118,6 +128,7 @@ npm run dev
 4. Commit `public/CNAME` with `yeasindev.me`, keep the four GitHub A records for `@`, and point `www` via CNAME to `ya-shuvo30.github.io`.  
 5. In repo settings set the Custom domain to `yeasindev.me`, wait for the SSL check to pass, then enable **Enforce HTTPS**.  
 6. During DNS propagation the site remains reachable at `https://<username>.github.io/Personal-App-Nextjs/` after each workflow run.
+7. The build pipeline now produces `sitemap.xml` and `robots.txt` automatically in `out/`, so Google Search Console can read `https://yeasindev.me/sitemap.xml` once Pages publishes.
 
 ### Other Hosts
 
@@ -125,3 +136,9 @@ npm run dev
 - Docker/Nginx: run `npm run build` to generate `out/` (static) or serve `.next` with a Node adapter.
 
 > **Note:** Because the workflow leaves `NEXT_PUBLIC_BASE_PATH` undefined, builds target the root (`/`). Set it (e.g., `/Personal-App-Nextjs`) only if you intentionally deploy under a subpath of `username.github.io`.
+
+### SEO + Search Console
+
+- `next-sitemap` runs after every `npm run build`, writing `sitemap.xml` and `robots.txt` into the exported `out/` folder.  
+- Submit `https://yeasindev.me/sitemap.xml` in Google Search Console to help crawl the site faster.  
+- To test locally, run `npm run build` then open `./out/sitemap.xml` or `./out/robots.txt` in a browser.
