@@ -541,7 +541,7 @@ function TestimonialSection({ project }: { project: ProjectDetail }) {
 
       <Card className="border-white/10 bg-gray-900/50 p-8">
         <blockquote className="body-lg mb-6 italic text-gray-300">
-          "{project.testimonial.quote}"
+          &ldquo;{project.testimonial.quote}&rdquo;
         </blockquote>
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 text-xl font-bold text-gray-900">
@@ -587,7 +587,7 @@ function CTASection() {
           <Button asChild className="gap-2">
             <Link href="/contact">
               <MessageSquareQuote className="h-4 w-4" />
-              Let's Talk
+              Let&apos;s Talk
             </Link>
           </Button>
           <Button variant="outline" asChild className="gap-2">

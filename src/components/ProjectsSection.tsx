@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
-import { Github, ExternalLink, Server, Layout, Brain, ChevronRight } from "lucide-react";
+import { Server, Layout, Brain, ChevronRight } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { Card } from "@/components/ui/card";
 import { projectsData } from "@/data/projects";
