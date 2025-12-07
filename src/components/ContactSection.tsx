@@ -13,7 +13,7 @@ const contacts = [
 ];
 
 const socials = [
-  { icon: Github, href: "https://github.com/ya-shuvo30" },
+  { icon: Github, href: "https://github.com/yeasin-dev-me" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/yeasin-arafat650" },
   { icon: Mail, href: "mailto:yeasinarafat.cs@gmail.com" },
 ];

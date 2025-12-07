@@ -82,9 +82,9 @@ export const projectsData: ProjectDetail[] = [
     title: "BrightLife Membership Platform",
     tagline: "Full-stack health membership ecosystem with smart eligibility validation, payment verification, automated receipt generation, JWT authentication, and production VPS deployment.",
     description: "Comprehensive health membership management platform for Bangladesh healthcare market handling user registration, application submission, payment verification, and auto-generated receipts with QR codes.",
-    heroImage: "/images/projects/brightlife/admin-dashboard.png",
+    heroImage: "/images/projects/brightlife/backend/Screenshot (65).png",
     liveUrl: "https://www.brightlifebd.com",
-    repoUrl: "https://github.com/ya-shuvo30/Brightlife-Django-Backend",
+    repoUrl: "https://github.com/yeasin-dev-me/Brightlife-Django-Backend",
 
     client: "BrightLife Health Services (Bangladesh)",
     industry: "Healthcare / Insurance / SaaS",
@@ -105,7 +105,7 @@ export const projectsData: ProjectDetail[] = [
     challengeConclusion: "They needed to digitize the entire membership process, automate payment verification and receipts, secure user data with modern authentication, and scale to handle 10,000+ members.",
 
     solutionIntro: "I designed and built a comprehensive full-stack platform with modern REST API, secure authentication, file management, and production deployment:",
-    architectureImage: "/images/projects/brightlife/swagger-api.png",
+    architectureImage: "/images/projects/brightlife/backend/Screenshot (66).png",
     solutionPoints: [
       { title: "Modern REST API", description: "Django REST Framework with OpenAPI documentation, nested serializers for complex forms, and custom viewsets with actions." },
       { title: "JWT Authentication", description: "Simple JWT with access + refresh token rotation, role-based access control, and secure session management." },
@@ -131,9 +131,9 @@ export const projectsData: ProjectDetail[] = [
     ],
 
     screenshots: [
-      { src: "/images/projects/brightlife/admin-dashboard.png", alt: "Admin Dashboard", caption: "Django Admin - Site Administration with Membership & Payment Management" },
-      { src: "/images/projects/brightlife/swagger-api.png", alt: "Swagger API", caption: "OpenAPI Swagger UI - REST API Documentation with Auth & Membership Endpoints" },
-      { src: "/images/projects/brightlife/redoc-api.png", alt: "ReDoc API", caption: "ReDoc Documentation - Detailed API Schema with Request/Response Samples" },
+      { src: "/images/projects/brightlife/backend/Screenshot (65).png", alt: "Admin Dashboard", caption: "Django Admin - Site Administration with Membership & Payment Management" },
+      { src: "/images/projects/brightlife/backend/Screenshot (66).png", alt: "Swagger API", caption: "OpenAPI Swagger UI - REST API Documentation with Auth & Membership Endpoints" },
+      { src: "/images/projects/brightlife/backend/Screenshot (67).png", alt: "ReDoc API", caption: "ReDoc Documentation - Detailed API Schema with Request/Response Samples" },
     ],
 
     metrics: [
@@ -238,7 +238,7 @@ export const projectsData: ProjectDetail[] = [
     tagline: "Docker Compose, Nginx, and GitHub Actions templates for zero-downtime deploys.",
     description: "Docker Compose, Nginx, and GitHub Actions templates that standardize staging + production rollouts with zero-downtime deploys.",
     heroImage: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1600&q=80",
-    repoUrl: "https://github.com/ya-shuvo30/deployment-automation-toolkit",
+    repoUrl: "https://github.com/yeasin-dev-me/deployment-automation-toolkit",
 
     client: "Open Source Project",
     industry: "DevOps / Infrastructure",
@@ -506,7 +506,7 @@ export const projectsData: ProjectDetail[] = [
     tagline: "Scikit-learn pipeline predicting member churn with 89% accuracy.",
     description: "Scikit-learn pipeline predicting member churn with 89% accuracy using historical activity, plan usage, and engagement signals.",
     heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80",
-    repoUrl: "https://github.com/ya-shuvo30/churn-prediction",
+    repoUrl: "https://github.com/yeasin-dev-me/churn-prediction",
 
     client: "Internal Project",
     industry: "Machine Learning / Healthcare",
@@ -573,7 +573,7 @@ export const projectsData: ProjectDetail[] = [
     tagline: "NLP microservice classifying PDFs and extracting key entities.",
     description: "NLP microservice classifying uploaded PDFs by type and extracting key entities using spaCy and Hugging Face transformers.",
     heroImage: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1600&q=80",
-    repoUrl: "https://github.com/ya-shuvo30/doc-classifier",
+    repoUrl: "https://github.com/yeasin-dev-me/doc-classifier",
 
     client: "Internal Project",
     industry: "NLP / Document Processing",
@@ -640,7 +640,7 @@ export const projectsData: ProjectDetail[] = [
     tagline: "Collaborative filtering engine for personalized plan suggestions.",
     description: "Collaborative filtering engine generating personalized plan suggestions based on member demographics and behavior clusters.",
     heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?auto=format&fit=crop&w=1600&q=80",
-    repoUrl: "https://github.com/ya-shuvo30/recommendation-engine",
+    repoUrl: "https://github.com/yeasin-dev-me/recommendation-engine",
 
     client: "Internal Project",
     industry: "Machine Learning / Healthcare",

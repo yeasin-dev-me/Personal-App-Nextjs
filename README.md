@@ -8,7 +8,7 @@ Modern, dark-themed portfolio highlighting my work across React/Next.js frontend
 - **Phone:** +880 1851 257 710  
 - **Email:** [yeasinarafat.cs@gmail.com](mailto:yeasinarafat.cs@gmail.com)  
 - **LinkedIn:** [linkedin.com/in/yeasin-arafat650](https://www.linkedin.com/in/yeasin-arafat650)  
-- **GitHub:** [github.com/ya-shuvo30](https://github.com/ya-shuvo30)
+- **GitHub:** [github.com/yeasin-dev-me](https://github.com/yeasin-dev-me)
 
 ## What I Build
 
@@ -129,7 +129,7 @@ npm run dev
 1. Ensure the default branch is `main`, then push your changes.  
 2. In GitHub → _Settings_ → _Pages_, choose **GitHub Actions** as the source (one-time step).  
 3. The workflow at `.github/workflows/deploy.yml` installs deps, lints, runs `npm run build`, and uploads the static `out/` folder.  
-4. Commit `public/CNAME` with `yeasindev.me`, keep the four GitHub A records for `@`, and point `www` via CNAME to `ya-shuvo30.github.io`.  
+4. Commit `public/CNAME` with `yeasindev.me`, keep the four GitHub A records for `@`, and point `www` via CNAME to `yeasin-dev-me.github.io`.  
 5. In repo settings set the Custom domain to `yeasindev.me`, wait for the SSL check to pass, then enable **Enforce HTTPS**.  
 6. During DNS propagation the site remains reachable at `https://<username>.github.io/Personal-App-Nextjs/` after each workflow run.
 7. The build pipeline now produces `sitemap.xml` and `robots.txt` automatically in `out/`, so Google Search Console can read `https://yeasindev.me/sitemap.xml` once Pages publishes.

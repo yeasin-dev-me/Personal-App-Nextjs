@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const socials = [
-  { icon: Github, href: "https://github.com/ya-shuvo30", label: "GitHub" },
+  { icon: Github, href: "https://github.com/yeasin-dev-me", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/yeasin-arafat650", label: "LinkedIn" },
   { icon: Mail, href: "mailto:yeasinarafat.cs@gmail.com", label: "Email" },
 ];
