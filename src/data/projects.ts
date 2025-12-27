@@ -35,6 +35,8 @@ export interface ProjectDetail {
   liveUrl?: string;
   repoUrl?: string;
   caseStudyUrl?: string;
+  swaggerUrl?: string;
+  redocUrl?: string;
 
   // Overview
   client: string;
@@ -72,6 +74,21 @@ export interface ProjectDetail {
 
   // Testimonial
   testimonial?: ProjectTestimonial;
+
+  // Process / SDLC
+  process?: ProjectProcess;
+}
+
+export interface ProjectProcessStep {
+  title: string;
+  description: string;
+  checklist?: string[];
+  deliverables?: string;
+}
+
+export interface ProjectProcess {
+  description: string;
+  steps: ProjectProcessStep[];
 }
 
 export const projectsData: ProjectDetail[] = [
@@ -80,17 +97,19 @@ export const projectsData: ProjectDetail[] = [
     slug: "brightlife-membership-platform",
     category: "backend",
     title: "BrightLife Membership Platform (Backend)",
-    tagline: "Production-grade Django REST API with JWT authentication, payment verification, automated receipt generation, and VPS deployment for healthcare membership management.",
+    tagline: "Layered SPA + modular monolith Django REST API with JWT authentication, payment verification, automated receipt generation, and VPS deployment for healthcare membership management.",
     description: "Comprehensive backend API for health membership management platform handling user registration, application processing, payment verification, and auto-generated receipts with QR codes.",
     heroImage: "/images/projects/brightlife/backend/Screenshot (72).png",
-    liveUrl: "https://api.brightlifebd.com",
+    liveUrl: "https://www.brightlifebd.com/",
     repoUrl: "https://github.com/yeasin-dev-me/Brightlife-Django-Backend",
+    swaggerUrl: "https://api.brightlifebd.com/api/schema/swagger-ui/",
+    redocUrl: "https://api.brightlifebd.com/api/schema/redoc/",
 
     client: "BrightLife Health Services (Bangladesh)",
     industry: "Healthcare / Insurance / SaaS",
     duration: "3 months (Nov 2024 - Feb 2025)",
     role: "Lead Backend Developer",
-    overview: "BrightLife Backend is a production-grade Django REST API designed for the Bangladesh healthcare market. The system handles the complete membership lifecycle: JWT-based authentication, multi-step application processing with nested serializers, nominee management with share validation, payment verification with screenshot upload, and auto-generated receipts with QR codes. Deployed on VPS with Nginx + Gunicorn and SSL/TLS.",
+    overview: "BrightLife Backend is a production-grade Django REST API designed for the Bangladesh healthcare market. It powers a decoupled React/Vite SPA via an HTTPS edge (Nginx → Gunicorn → Django) while PostgreSQL and dedicated media storage manage transactional data. The modular monolith handles the complete membership lifecycle: JWT-based authentication, multi-step application processing with nested serializers, nominee/share validation, payment verification with screenshot uploads, and auto-generated receipts with QR codes, all deployed on VPS with SSL/TLS.",
 
     challengeIntro: "BrightLife Health Services needed a robust backend API to power their digital membership platform. Their existing system had no proper API layer:",
     painPoints: [
@@ -104,14 +123,100 @@ export const projectsData: ProjectDetail[] = [
     ],
     challengeConclusion: "They needed a modern REST API with JWT authentication, proper data validation, file handling, auto-generated receipts, and comprehensive API documentation.",
 
-    solutionIntro: "I designed and built a production-grade Django REST API with modern authentication, nested serializers, and comprehensive documentation:",
+    solutionIntro: "I formalized architecture patterns that keep the platform production-ready, independently deployable, and future-proof:",
     architectureImage: "/images/projects/brightlife/backend/Screenshot (73).png",
     solutionPoints: [
-      { title: "Django REST Framework", description: "RESTful API with nested serializers for complex membership forms, custom viewsets with actions, and field-level validation." },
-      { title: "JWT Authentication", description: "Simple JWT with access + refresh token rotation, secure session management, and role-based access control." },
-      { title: "OpenAPI Documentation", description: "drf-spectacular for auto-generated Swagger UI and ReDoc documentation with request/response schemas." },
-      { title: "Production Deployment", description: "AlmaLinux VPS with Nginx reverse proxy, Gunicorn WSGI server, PostgreSQL 15, and Let's Encrypt SSL/TLS." },
+      { title: "Layered SPA Deployment", description: "React/Vite SPA communicates exclusively via HTTPS with Nginx terminating SSL, proxying to Gunicorn and Django, while PostgreSQL and dedicated media storage manage persistence for clear presentation → edge → application → data separation." },
+      { title: "Modular Monolith", description: "Package-by-feature Django modules (users, membership, payments, core services) own their models/serializers/viewsets, with shared authentication, permissions, and utilities centralized to keep the codebase cohesive without microservice overhead." },
+      { title: "Resource-Oriented REST API", description: "Versioned /api/v1 endpoints built with DRF are stateless, JWT-secured, and organized around resources, following a schema-first approach with auto-generated Swagger and ReDoc documentation for backward-compatible integrations." },
+      { title: "Operational Readiness", description: "AlmaLinux VPS hardened with Nginx SSL termination, Gunicorn workers, PostgreSQL 15, and systemd services to support independent frontend/backend releases and straightforward scaling paths." },
     ],
+
+    process: {
+      description: "This workflow documents the end-to-end steps expected from engineers when delivering changes to the BrightLife Django backend, ensuring work stays consistent and auditable.",
+      steps: [
+        {
+          title: "1. Discovery & Requirements",
+          description: "Capture the problem statement, business rules, and success metrics. Identify affected domains (users, membership, payment) and validate data needs.",
+          checklist: [
+            "Capture problem statement & success metrics",
+            "Identify affected domains",
+            "Validate data needs and migrations",
+          ],
+          deliverables: "User story/ticket, acceptance criteria, rough data model sketch.",
+        },
+        {
+          title: "2. Design & Planning",
+          description: "Choose the approach (serializer/viewset updates), plan authentication impact, and estimate non-functional needs like rate limits.",
+          checklist: [
+            "Choose technical approach",
+            "Plan auth/permission impact",
+            "Estimate non-functional needs",
+          ],
+          deliverables: "Short design summary in ticket, diagram if needed.",
+        },
+        {
+          title: "3. Implementation",
+          description: "Create/modify models, serializers, and viewsets following app boundaries. Update settings/env toggles and ensure PEP 8 compliance.",
+          checklist: [
+            "Create/modify models, serializers, viewsets",
+            "Update settings/env toggles",
+            "Add comments & ensure PEP 8 compliance",
+          ],
+          deliverables: "Code changes, migrations, updated configs.",
+        },
+        {
+          title: "4. Testing & Validation",
+          description: "Write unit and API tests (DRF APITestCase). Run full suite and exercise manual flows for critical UX.",
+          checklist: [
+            "Write/extend unit & API tests",
+            "Run full test suite",
+            "Manual verification of critical flows",
+          ],
+          deliverables: "Passing test output, validation evidence.",
+        },
+        {
+          title: "5. Documentation & Change Log",
+          description: "Update README, API tables, and setup docs. Record user-facing changes in CHANGELOG.md.",
+          checklist: [
+            "Update README & API docs",
+            "Update portfolio/project documentation",
+            "Record in CHANGELOG.md",
+          ],
+          deliverables: "Doc updates committed alongside code.",
+        },
+        {
+          title: "6. Code Review & Merge",
+          description: "Open PR with summary and testing evidence. Address reviewer comments and ensure branch is up to date.",
+          checklist: [
+            "Open PR with summary",
+            "Address reviewer comments",
+            "Ensure branch up-to-date",
+          ],
+          deliverables: "Approved PR, clean commit history.",
+        },
+        {
+          title: "7. Deployment",
+          description: "Confirm .env changes, pull code on VPS, migrate DB, collectstatic, and restart services.",
+          checklist: [
+            "Confirm .env changes",
+            "Pull code, migrate, restart services",
+            "Run deployment pipeline hooks",
+          ],
+          deliverables: "Deployment log or confirmation message.",
+        },
+        {
+          title: "8. Post-Deployment Verification",
+          description: "Smoke test key endpoints, check logs (Gunicorn/Nginx), and validate SSL/HTTPS health.",
+          checklist: [
+            "Smoke test key endpoints",
+            "Check Gunicorn/Nginx logs",
+            "Validate SSL & domain health",
+          ],
+          deliverables: "Verification note, follow-up tasks if issues found.",
+        },
+      ],
+    },
 
     features: [
       { icon: "🔐", title: "JWT Authentication", description: "Secure token-based auth with access + refresh rotation, token blacklisting, and role-based permissions." },
@@ -157,6 +262,8 @@ export const projectsData: ProjectDetail[] = [
       "Mobile-friendly design increased application submissions by 40%",
       "Admin workload reduced by 80%",
       "API response time < 200ms average",
+      "Documented layered SPA → edge → application → data model for dev + ops alignment",
+      "Modular monolith guidelines keep feature teams shipping without microservice overhead",
     ],
 
     testimonial: {
@@ -168,139 +275,7 @@ export const projectsData: ProjectDetail[] = [
     },
   },
 
-  {
-    slug: "itransition-integration-layer",
-    category: "backend",
-    title: "Itransition Integration Layer",
-    tagline: "Reusable Django ORM modules and FastAPI services with Azure deployments.",
-    description: "Reusable Django ORM modules and FastAPI services with Azure deployments powering invoicing, billing, and access control across internal tools.",
-    heroImage: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1600&q=80",
-    liveUrl: "https://yeasindev.me/work/itransition",
 
-    client: "Itransition (Enterprise Client)",
-    industry: "Enterprise Software / SaaS",
-    duration: "4 months (2024)",
-    role: "Backend Developer",
-    overview: "Developed reusable integration modules and microservices that power invoicing, billing, and access control across multiple internal enterprise tools.",
-
-    challengeIntro: "The enterprise needed standardized backend components across multiple internal tools:",
-    painPoints: [
-      "Duplicated code across 5+ internal applications",
-      "Inconsistent API patterns causing integration issues",
-      "Manual billing calculations prone to errors",
-      "No centralized access control system",
-      "Slow deployment cycles (2+ weeks)",
-    ],
-    challengeConclusion: "They needed a unified integration layer with reusable components and consistent patterns.",
-
-    solutionIntro: "I built a modular integration layer with standardized components:",
-    solutionPoints: [
-      { title: "Reusable ORM Modules", description: "Django ORM modules for common operations like user management, billing, and audit logging." },
-      { title: "FastAPI Microservices", description: "High-performance API endpoints for real-time operations and integrations." },
-      { title: "Azure Cloud Deployment", description: "Containerized services deployed on Azure with CI/CD automation." },
-      { title: "Centralized Auth", description: "Unified access control with OAuth2 and role-based permissions." },
-    ],
-
-    features: [
-      { icon: "🔗", title: "API Gateway", description: "Centralized routing and rate limiting for all internal services." },
-      { icon: "💳", title: "Billing Engine", description: "Automated invoice generation and payment tracking." },
-      { icon: "🔒", title: "Access Control", description: "Role-based permissions with audit logging." },
-      { icon: "📊", title: "Analytics", description: "Real-time metrics and usage dashboards." },
-    ],
-
-    techStack: [
-      { category: "Backend", items: ["Python", "Django REST", "FastAPI"] },
-      { category: "Database", items: ["PostgreSQL", "Redis"] },
-      { category: "Cloud", items: ["Azure App Service", "Azure Functions", "Azure DevOps"] },
-      { category: "Tools", items: ["Docker", "Swagger", "Pytest"] },
-    ],
-
-    screenshots: [
-      { src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1600&q=80", alt: "Dashboard", caption: "Integration Dashboard" },
-      { src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1600&q=80", alt: "Billing", caption: "Billing Overview" },
-      { src: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1600&q=80", alt: "API", caption: "API Documentation" },
-    ],
-
-    metrics: [
-      { value: "60%", label: "Less", subLabel: "Code Duplication" },
-      { value: "3x", label: "Faster", subLabel: "Development" },
-      { value: "5+", label: "Apps", subLabel: "Integrated" },
-      { value: "2wks→2days", label: "Deploy", subLabel: "Cycle" },
-    ],
-    achievements: [
-      "Reduced code duplication by 60% across internal apps",
-      "Standardized API patterns for 5+ applications",
-      "Automated billing reduced errors by 95%",
-      "Deployment cycles shortened from 2 weeks to 2 days",
-    ],
-  },
-
-  {
-    slug: "deployment-automation-toolkit",
-    category: "backend",
-    title: "Deployment Automation Toolkit",
-    tagline: "Docker Compose, Nginx, and GitHub Actions templates for zero-downtime deploys.",
-    description: "Docker Compose, Nginx, and GitHub Actions templates that standardize staging + production rollouts with zero-downtime deploys.",
-    heroImage: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=1600&q=80",
-    repoUrl: "https://github.com/yeasin-dev-me/deployment-automation-toolkit",
-
-    client: "Open Source Project",
-    industry: "DevOps / Infrastructure",
-    duration: "Ongoing (2024)",
-    role: "Creator & Maintainer",
-    overview: "A comprehensive toolkit of deployment templates and automation scripts for standardizing staging and production rollouts with zero-downtime strategies.",
-
-    challengeIntro: "Many teams struggle with inconsistent deployment processes:",
-    painPoints: [
-      "Manual deployment steps causing human errors",
-      "Downtime during deployments affecting users",
-      "No standardized configuration across environments",
-      "Difficult rollback procedures",
-      "Lack of deployment documentation",
-    ],
-    challengeConclusion: "I created this toolkit to provide battle-tested templates for modern deployment workflows.",
-
-    solutionIntro: "A collection of ready-to-use templates and scripts:",
-    solutionPoints: [
-      { title: "Docker Compose Templates", description: "Production-ready compose files for common stacks (Django, Node, React)." },
-      { title: "Nginx Configurations", description: "SSL, caching, load balancing, and reverse proxy configs." },
-      { title: "GitHub Actions Workflows", description: "CI/CD pipelines for build, test, and deploy automation." },
-      { title: "Zero-Downtime Scripts", description: "Blue-green and rolling deployment strategies." },
-    ],
-
-    features: [
-      { icon: "🐳", title: "Docker Ready", description: "Pre-configured Docker setups for multiple frameworks." },
-      { icon: "🔄", title: "Zero Downtime", description: "Blue-green deployment strategies included." },
-      { icon: "🔐", title: "SSL/TLS", description: "Let's Encrypt auto-renewal configurations." },
-      { icon: "📦", title: "Multi-Stage", description: "Optimized multi-stage Docker builds." },
-    ],
-
-    techStack: [
-      { category: "Containerization", items: ["Docker", "Docker Compose"] },
-      { category: "Web Server", items: ["Nginx", "Traefik"] },
-      { category: "CI/CD", items: ["GitHub Actions", "GitLab CI"] },
-      { category: "Cloud", items: ["AWS EC2", "DigitalOcean", "Azure"] },
-    ],
-
-    screenshots: [
-      { src: "https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1600&q=80", alt: "GitHub", caption: "Repository Structure" },
-      { src: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80", alt: "Actions", caption: "CI/CD Pipeline" },
-      { src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1600&q=80", alt: "Deploy", caption: "Deployment Dashboard" },
-    ],
-
-    metrics: [
-      { value: "50+", label: "Stars", subLabel: "on GitHub" },
-      { value: "0", label: "Downtime", subLabel: "Deploys" },
-      { value: "10+", label: "Templates", subLabel: "Included" },
-      { value: "5min", label: "Setup", subLabel: "Time" },
-    ],
-    achievements: [
-      "Used by 50+ developers worldwide",
-      "Zero-downtime deployment templates",
-      "Comprehensive documentation",
-      "Active community contributions",
-    ],
-  },
 
   // ========== FRONTEND PROJECTS ==========
   {

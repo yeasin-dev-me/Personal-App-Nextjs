@@ -7,15 +7,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const contacts = [
-  { icon: Mail, label: "Email", value: "yeasinarafat.cs@gmail.com" },
-  { icon: Phone, label: "Phone", value: "+880 1851 257 710" },
+  { icon: Mail, label: "Email", value: "Contact via Upwork" },
+  { icon: Phone, label: "Phone", value: "Contact via Upwork" },
   { icon: MapPin, label: "Location", value: "Dhaka, Bangladesh" },
 ];
 
 const socials = [
   { icon: Github, href: "https://github.com/yeasin-dev-me" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/yeasin-arafat650" },
-  { icon: Mail, href: "mailto:yeasinarafat.cs@gmail.com" },
 ];
 
 export function ContactSection() {
@@ -32,7 +31,7 @@ export function ContactSection() {
           <p className="pill-label text-emerald-300">Contact</p>
           <h2 className="heading-xl text-white">Let&apos;s build something remarkable.</h2>
           <p className="body-lg mb-8 text-gray-400">
-            Share a short brief and I&apos;ll respond within two business days. I support founders, product teams, and agencies shipping secure platforms.
+            Please message me directly on Upwork to discuss your project. I support founders, product teams, and agencies shipping secure platforms.
           </p>
           <form
             className="space-y-4"
@@ -42,7 +41,7 @@ export function ContactSection() {
               <Input placeholder="First name" aria-label="First name" />
               <Input placeholder="Last name" aria-label="Last name" />
             </div>
-            <Input type="email" placeholder="Email" aria-label="Email" />
+            <Input type="email" placeholder="Your Email" aria-label="Email" />
             <Input placeholder="Subject" aria-label="Subject" />
             <Textarea rows={5} placeholder="Tell me about your project" aria-label="Message" />
             <Button className="w-full gap-2" type="submit">

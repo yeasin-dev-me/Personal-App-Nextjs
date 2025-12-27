@@ -1,13 +1,12 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
+import { Github, Linkedin, ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const socials = [
   { icon: Github, href: "https://github.com/yeasin-dev-me", label: "GitHub" },
   { icon: Linkedin, href: "https://www.linkedin.com/in/yeasin-arafat650", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:yeasinarafat.cs@gmail.com", label: "Email" },
 ];
 
 const particles = Array.from({ length: 50 }, (_, index) => {
@@ -61,7 +60,7 @@ export function HeroSection() {
             FastAPI backends, PostgreSQL data models, and automated delivery pipelines.
           </p>
           <p className="body-base text-gray-400">
-            Dhaka, Bangladesh | +880 1851 257 710 | yeasinarafat.cs@gmail.com
+            Dhaka, Bangladesh | Available for new opportunities
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <Button

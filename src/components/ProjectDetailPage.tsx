@@ -9,6 +9,7 @@ import {
   Play,
   FileText,
   Building2,
+  BookOpen,
   Briefcase,
   Clock,
   User,
@@ -23,6 +24,7 @@ import {
   FolderOpen,
   Star,
   ChevronRight,
+  ClipboardList,
 } from "lucide-react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { Card } from "@/components/ui/card";
@@ -61,6 +63,9 @@ export function ProjectDetailPage({ project }: ProjectDetailPageProps) {
         {/* SECTION 2: Project Overview */}
         <OverviewSection project={project} />
 
+        {/* SECTION: Development Process */}
+        {project.process && <ProcessSection project={project} />}
+
         {/* SECTION 3: The Challenge */}
         <ChallengeSection project={project} />
 
@@ -97,6 +102,7 @@ function SectionNav() {
   const sections = [
     { id: "hero", label: "Hero", icon: Camera },
     { id: "overview", label: "Overview", icon: FileText },
+    { id: "process", label: "Process", icon: ClipboardList },
     { id: "challenge", label: "Challenge", icon: Target },
     { id: "solution", label: "Solution", icon: Lightbulb },
     { id: "features", label: "Features", icon: Zap },
@@ -196,6 +202,22 @@ function HeroSection({ project }: { project: ProjectDetail }) {
             Case Study
           </Button>
         )}
+        {project.swaggerUrl && (
+          <Button variant="outline" asChild className="gap-2">
+            <a href={project.swaggerUrl} target="_blank" rel="noreferrer">
+              <BookOpen className="h-4 w-4" />
+              Swagger UI
+            </a>
+          </Button>
+        )}
+        {project.redocUrl && (
+          <Button variant="outline" asChild className="gap-2">
+            <a href={project.redocUrl} target="_blank" rel="noreferrer">
+              <FileText className="h-4 w-4" />
+              ReDoc
+            </a>
+          </Button>
+        )}
       </div>
     </motion.section>
   );
@@ -234,6 +256,65 @@ function OverviewSection({ project }: { project: ProjectDetail }) {
       </div>
 
       <p className="body-lg text-gray-400">{project.overview}</p>
+    </motion.section>
+  );
+}
+
+// SECTION: Process / SDLC
+function ProcessSection({ project }: { project: ProjectDetail }) {
+  if (!project.process) return null;
+
+  return (
+    <motion.section
+      id="process"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.6 }}
+      className="mb-20"
+    >
+      <SectionHeader icon={ClipboardList} title="Development Process" color="text-indigo-300" />
+
+      <p className="body-lg mb-8 text-gray-400">{project.process.description}</p>
+
+      <div className="relative border-l border-indigo-500/20 pl-8 ml-3 space-y-10">
+        {project.process.steps.map((step, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className="relative"
+          >
+            {/* Timeline Dot */}
+            <span className="absolute -left-[41px] top-1 flex h-6 w-6 items-center justify-center rounded-full bg-gray-950 border border-indigo-500/50 text-xs font-bold text-indigo-400">
+              {index + 1}
+            </span>
+
+            <h3 className="heading-md mb-2 text-white">{step.title.replace(/^\d+\.\s*/, "")}</h3>
+            <p className="body-base mb-4 text-gray-400">{step.description}</p>
+
+            {step.checklist && (
+              <div className="mb-4 space-y-2">
+                {step.checklist.map((item, i) => (
+                  <div key={i} className="flex items-start gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-indigo-500/50" />
+                    <span className="body-sm text-gray-300">{item}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {step.deliverables && (
+              <div className="rounded-lg border border-white/5 bg-gray-900/50 px-4 py-2">
+                <span className="body-sm font-semibold text-indigo-300">Deliverables: </span>
+                <span className="body-sm text-gray-400">{step.deliverables}</span>
+              </div>
+            )}
+          </motion.div>
+        ))}
+      </div>
     </motion.section>
   );
 }
@@ -544,7 +625,7 @@ function TestimonialSection({ project }: { project: ProjectDetail }) {
           &ldquo;{project.testimonial.quote}&rdquo;
         </blockquote>
         <div className="flex items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-cyan-400 text-xl font-bold text-gray-900">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-emerald-400 to-cyan-400 text-xl font-bold text-gray-900">
             {project.testimonial.author.charAt(0)}
           </div>
           <div>
@@ -577,7 +658,7 @@ function CTASection() {
       transition={{ duration: 0.6 }}
       className="mb-20"
     >
-      <Card className="border-emerald-500/30 bg-gradient-to-br from-emerald-900/20 to-cyan-900/20 p-8 text-center">
+      <Card className="border-emerald-500/30 bg-linear-to-br from-emerald-900/20 to-cyan-900/20 p-8 text-center">
         <Rocket className="mx-auto mb-4 h-10 w-10 text-emerald-300" />
         <h3 className="heading-lg mb-2 text-white">Interested in Something Similar?</h3>
         <p className="body-lg mb-6 text-gray-400">
@@ -589,11 +670,6 @@ function CTASection() {
               <MessageSquareQuote className="h-4 w-4" />
               Let&apos;s Talk
             </Link>
-          </Button>
-          <Button variant="outline" asChild className="gap-2">
-            <a href="mailto:yeasin@example.com">
-              📧 Get in Touch
-            </a>
           </Button>
         </div>
       </Card>
